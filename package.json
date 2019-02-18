@@ -1,0 +1,25 @@
+{
+  "name": "coda-js",
+  "version": "1.0.0",
+  "description": "An eloquent Node API for interacting with your Coda Docs.",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "parcel ./src/index.js --target node",
+    "build": "parcel build ./src/index.js --target node"
+  },
+  "keywords": ["coda", "docs", "automation", "integration"],
+  "author": "Parker McMullin <parker.mcmullin01@gmail.com>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "homepage": "",
+  "dependencies": {
+    "@babel/runtime-corejs2": "^7.3.1",
+    "axios": "^0.18.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.3.3"
+  }
+}
