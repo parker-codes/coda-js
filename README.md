@@ -39,7 +39,7 @@ could be consolidated into:
 
 ```js
 // uses only one request, which is best when you already know the exact IDs to get the item(s) directly
-const await coda.getTable('O7d9JvX0GY', 'grid-_14oaR8gdM');
+await coda.getTable('O7d9JvX0GY', 'grid-_14oaR8gdM');
 ```
 
 
