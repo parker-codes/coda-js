@@ -11,7 +11,11 @@ class API {
 
     async request(url, params = {}, method = 'GET') {
         try {
-            return await axios({ method, url, data: params, params });
+            const options = ['POST','PUT','PATCH'].includes(method.toUpperCase())
+              ? { url, method, data: params }
+              : { url, method, params };
+
+            return await axios(options);
         } catch (error) {
             console.error(error);
         }
