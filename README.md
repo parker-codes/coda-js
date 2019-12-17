@@ -90,7 +90,7 @@ const firstDoc = docs[0];
 const firstDocTables = await firstDoc.listTables();
 console.log(firstDocTables);
 
-const someTableColumns = firstDocTables[0].listColumns();
+const columns = await firstDocTables[0].listColumns();
 console.log(columns.map(column => column.name)); // list column names
 
 const table = docs.getTable('grid-**********'); // insert/inject table name or ID here
