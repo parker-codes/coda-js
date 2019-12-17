@@ -2,10 +2,13 @@
   "name": "coda-js",
   "version": "1.0.3",
   "description": "An eloquent Node API for interacting with your Coda Docs.",
+  "source": "src/index.ts",
   "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "typings": "dist/index.d.ts",
   "scripts": {
-    "dev": "parcel ./src/index.js --target node",
-    "build": "parcel build ./src/index.js --target node"
+    "dev": "microbundle watch",
+    "build": "microbundle"
   },
   "keywords": [
     "coda",
@@ -21,10 +24,9 @@
   },
   "homepage": "https://github.com/google-mac/coda-js",
   "dependencies": {
-    "@babel/runtime-corejs2": "^7.3.1",
-    "axios": "^0.18.0"
+    "axios": "^0.19.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.3.3"
+    "microbundle": "^0.11.0"
   }
 }
