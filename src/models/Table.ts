@@ -34,6 +34,14 @@ class Table {
     return data.items.map(row => new Row(this.API, { ...row, docId: this.docId, tableId: this.id })); // map all items into Rows
   }
 
+  async listRowsPaginatedByToken(params: any): Promise<{items: Row[], token:string}> {
+    // params: query, useColumnNames, limit, pageToken
+    // https://coda.io/developers/apis/v1beta1#operation/listRows
+    const { data } = await this.API.request(`/docs/${this.docId}/tables/${this.id}/rows`, params);
+    const items = data.items.map(row => new Row(this.API, { ...row, docId: this.docId, tableId: this.id })); // map all items into Rows
+    return {items, token: (data.nextPageToken as string)}
+  }
+
   async getRow(rowIdOrName: string, params: any): Promise<Row> {
     // params: useColumnNames
     // https://coda.io/developers/apis/v1beta1#operation/getColumn

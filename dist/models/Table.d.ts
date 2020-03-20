@@ -9,6 +9,10 @@ declare class Table {
     listColumns(params: any): Promise<Column[]>;
     getColumn(columnIdOrName: string): Promise<Column>;
     listRows(params: any): Promise<Row[]>;
+    listRowsPaginatedByToken(params: any): Promise<{
+        items: Row[];
+        token: string;
+    }>;
     getRow(rowIdOrName: string, params: any): Promise<Row>;
     insertRows(rows?: any[], keyColumns?: any[]): Promise<boolean>;
     updateRow(rowIdOrName: string, row: any): Promise<boolean>;
