@@ -70,6 +70,13 @@ class Table {
     const { status } = await this.API.request(`/docs/${this.docId}/tables/${this.id}/rows/${rowIdOrName}`, {}, 'DELETE');
     return status === 202;
   }
+
+  async deleteRows(rowIds: string[]): Promise<boolean> {
+    // docs/{docId}/tables/{tableIdOrName}/rows
+    const params = {rowIds};
+    const { status } = await this.API.request(`/docs/${this.docId}/tables/${this.id}/rows`, params , 'DELETE');
+    return status === 202;
+  }
 }
 
 export default Table;
