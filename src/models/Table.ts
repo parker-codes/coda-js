@@ -74,7 +74,7 @@ class Table {
   async deleteRows(rowIds: string[]): Promise<boolean> {
     // docs/{docId}/tables/{tableIdOrName}/rows
     const params = {rowIds: rowIds};
-    const { status } = await this.API.request(`/docs/${this.docId}/tables/${this.id}/rows`, params , 'DELETE');
+    const { status } = await this.API.deleteWithBody(`/docs/${this.docId}/tables/${this.id}/rows`, params);
     return status === 202;
   }
 }
