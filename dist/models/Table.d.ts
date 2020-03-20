@@ -13,5 +13,6 @@ declare class Table {
     insertRows(rows?: any[], keyColumns?: any[]): Promise<boolean>;
     updateRow(rowIdOrName: string, row: any): Promise<boolean>;
     deleteRow(rowIdOrName: string): Promise<boolean>;
+    deleteRows(rowIds: string[]): Promise<boolean>;
 }
 export default Table;
