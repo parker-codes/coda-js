@@ -118,8 +118,15 @@ await table.insertRows([
 
 // inserting via column objects
 await table.insertRows([
-  [{ column: 'Name', value: 'Alexis' }, { column: 'Action', value: 'Do the dishes' }],
-  [{ column: 'Name', value: 'Parker' }, { column: 'Action', value: 'Make dinner' }, { column: 'Completed', value: true }],
+  [
+    { column: 'Name', value: 'Alexis' },
+    { column: 'Action', value: 'Do the dishes' },
+  ],
+  [
+    { column: 'Name', value: 'Parker' },
+    { column: 'Action', value: 'Make dinner' },
+    { column: 'Completed', value: true },
+  ],
 ]);
 ```
 
@@ -149,4 +156,7 @@ await row4.delete();
 
 // delete row from table
 await table.deleteRow('i-cpDDoshUEU');
+
+// deleting multiple rows from table
+await table.deleteRows(['i-cpDDoshUEU', 'i-jj81vtosO1']);
 ```

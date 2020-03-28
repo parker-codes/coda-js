@@ -30,5 +30,6 @@ declare class Coda {
     insertRows(docId: string, tableId: string, rows?: any[], keyColumns?: any[]): Promise<boolean>;
     updateRow(docId: string, tableId: string, rowIdOrName: string, row: any): Promise<boolean>;
     deleteRow(docId: string, tableId: string, rowIdOrName: string): Promise<boolean>;
+    deleteRows(docId: string, tableId: string, rowIds: string[]): Promise<boolean>;
 }
 export default Coda;
