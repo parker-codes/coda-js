@@ -1,6 +1,6 @@
 {
   "name": "coda-js",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "An eloquent Node API for interacting with your Coda Docs.",
   "source": "src/index.ts",
   "main": "dist/index.js",
