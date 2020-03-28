@@ -129,6 +129,14 @@ class Coda {
     const { status } = await this.API.request(`/docs/${docId}/tables/${tableId}/rows/${rowIdOrName}`, {}, 'DELETE');
     return status === 202;
   }
+
+  async deleteRows(docId: string, tableId: string, rowIds: string[]): Promise<boolean> {
+    // https://coda.io/developers/apis/v1beta1#operation/deleteRows
+
+    const params = { rowIds };
+    const { status } = await this.API.deleteWithBody(`/docs/${docId}/tables/${tableId}/rows`, params);
+    return status === 202;
+  }
 }
 
 export default Coda;

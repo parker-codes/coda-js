@@ -9,9 +9,7 @@ class API {
 
   async request(url: string, params: any = {}, method: Method = 'GET'): Promise<any> {
     try {
-      const options: AxiosRequestConfig = ['POST', 'PUT', 'PATCH'].includes(method.toUpperCase())
-        ? { url, method, data: params }
-        : { url, method, params };
+      const options: AxiosRequestConfig = ['POST', 'PUT', 'PATCH'].includes(method.toUpperCase()) ? { url, method, data: params } : { url, method, params };
 
       return await axios(options);
     } catch (error) {
