@@ -3,9 +3,9 @@
   "version": "2.1.0",
   "description": "An eloquent Node API for interacting with your Coda Docs.",
   "source": "src/index.ts",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "typings": "dist/index.d.ts",
+  "main": "build/index.js",
+  "module": "build/index.mjs",
+  "typings": "build/index.d.ts",
   "scripts": {
     "dev": "microbundle watch",
     "build": "microbundle"
