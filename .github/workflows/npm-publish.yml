@@ -15,8 +15,8 @@ jobs:
         uses: actions/checkout@master
       - name: Set up Node.js
         uses: actions/setup-node@master
-          with:
-            node-version: 12
+        with:
+          node-version: 12.18.0 # LTS
       - run: yarn install
       - run: yarn build
       - run: yarn test
@@ -30,8 +30,8 @@ jobs:
         uses: actions/checkout@master
       - name: Set up Node.js
         uses: actions/setup-node@master
-          with:
-            node-version: 12
+        with:
+          node-version: 12.18.0 # LTS
       - run: yarn install
       - run: yarn build
       - run: npm publish
