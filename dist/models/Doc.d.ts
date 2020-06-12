@@ -1,4 +1,4 @@
-import { Table, Section, Folder } from './index';
+import { Table, Section, Folder, Control } from './index';
 import API from '../API';
 declare class Doc {
     API: API;
@@ -10,5 +10,7 @@ declare class Doc {
     getFolder(folderIdOrName: string): Promise<Folder>;
     listTables(): Promise<Table[]>;
     getTable(tableIdOrName: string): Promise<Table>;
+    listControls(params: any): Promise<Control[]>;
+    getControl(controlIdOrName: string): Promise<Control>;
 }
 export default Doc;

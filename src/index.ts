@@ -1,5 +1,5 @@
 import API from './API';
-import { Doc, Table, Row, Column, Section, Folder } from './models/index';
+import { Doc, Table, Row, Column, Section, Folder, Control } from './models/index';
 import { formatRows } from './models/utilities';
 
 class Coda {
@@ -136,6 +136,19 @@ class Coda {
     const params = { rowIds };
     const { status } = await this.API.deleteWithBody(`/docs/${docId}/tables/${tableId}/rows`, params);
     return status === 202;
+  }
+
+  async listControls(docId: string, params: any): Promise<Section[]> {
+    // params: limit, pageToken, sortBy
+    // https://coda.io/developers/apis/v1beta1#operation/listControls
+    const { data } = await this.API.request(`/docs/${docId}/controls`, params);
+    return data.items.map(control => new Control({ ...control, docId })); // map all items into sections
+  }
+
+  async getControl(docId: string, controlIdOrName: string): Promise<Section> {
+    // https://coda.io/developers/apis/v1beta1#operation/getControl
+    const { data } = await this.API.request(`/docs/${docId}/controls/${controlIdOrName}`);
+    return new Control({ ...data, docId });
   }
 }
 

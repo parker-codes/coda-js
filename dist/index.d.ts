@@ -31,5 +31,7 @@ declare class Coda {
     updateRow(docId: string, tableId: string, rowIdOrName: string, row: any): Promise<boolean>;
     deleteRow(docId: string, tableId: string, rowIdOrName: string): Promise<boolean>;
     deleteRows(docId: string, tableId: string, rowIds: string[]): Promise<boolean>;
+    listControls(docId: string, params: any): Promise<Section[]>;
+    getControl(docId: string, controlIdOrName: string): Promise<Section>;
 }
 export default Coda;
