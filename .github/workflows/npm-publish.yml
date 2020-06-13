@@ -17,9 +17,11 @@ jobs:
         uses: actions/setup-node@master
         with:
           node-version: 12.18.0 # LTS
-      - run: yarn install
+      - run: yarn install --frozen-lockfile
       - run: yarn build
       - run: yarn test
+        env:
+          CODA_API_TOKEN: ${{secrets.CODA_API_TOKEN}}
 
   npm-publish:
     name: npm-publish
@@ -32,7 +34,7 @@ jobs:
         uses: actions/setup-node@master
         with:
           node-version: 12.18.0 # LTS
-      - run: yarn install
+      - run: yarn install --frozen-lockfile
       - run: yarn build
       - run: npm publish
       - name: Publish if version has been updated
