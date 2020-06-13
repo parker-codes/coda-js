@@ -1,0 +1,42 @@
+# This workflow will run tests and then publish the package to NPM when a release is created
+
+name: NPM Publish
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: yarn install
+      - run: yarn build
+      - run: yarn test
+
+  npm-publish:
+    name: npm-publish
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@master
+      - name: Set up Node.js
+        uses: actions/setup-node@master
+          with:
+            node-version: 12
+      - run: yarn install
+      - run: yarn build
+      - run: npm publish
+      - name: Publish if version has been updated
+        uses: pascalgn/npm-publish-action@4f4bf159e299f65d21cd1cbd96fc5d53228036df
+        with:
+          commit_pattern: "^Release (\\S+)"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # automatically generated
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # in repo settings
