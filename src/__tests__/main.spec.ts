@@ -96,3 +96,45 @@ test('can get row from table object', async () => {
     id: ROW_ID,
   });
 });
+
+test('can get controls in a doc', async () => {
+  const doc = await coda.getDoc(DOC_ID);
+  const controls = await doc.listControls();
+
+  expect(controls).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({
+        type: 'control',
+        docId: DOC_ID,
+      }),
+    ])
+  );
+});
+
+test('can get control value', async () => {
+  const CONTROL_ID = 'ctrl-2JHWDsayYx';
+
+  const control = await coda.getControl(DOC_ID, CONTROL_ID);
+
+  expect(control).toMatchObject({
+    type: 'control',
+    docId: DOC_ID,
+    name: 'monkeys-in-space',
+    controlType: 'checkbox',
+    value: true,
+  });
+});
+
+test('can get control by name', async () => {
+  const CONTROL_NAME = 'coda-js-quality';
+
+  const control = await coda.getControl(DOC_ID, CONTROL_NAME);
+
+  expect(control).toMatchObject({
+    type: 'control',
+    docId: DOC_ID,
+    name: CONTROL_NAME,
+    controlType: 'scale',
+    value: 5, // 5/5
+  });
+});
