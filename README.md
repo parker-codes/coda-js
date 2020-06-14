@@ -10,7 +10,7 @@ An eloquent Node API for interacting with your Coda Docs. This API utilizes the 
 
 ## Features
 
-- list or get specific Folder, Section, Doc, Table, Column, and Row information
+- list or get specific Folder, Section, Doc, Table, Column, Row, and Control information
 - query, insert, update, or delete table data
 - more formatting options than Coda's REST API for inserting or retrieving row values
 - an eloquent API (see examples)
@@ -58,7 +58,7 @@ Generate your token in your Coda profile settings. Notice: Everyone with this to
 
 ## TODOs
 
-- [ ] add formulas and controls API
+- [ ] add formulas API
 - [ ] error handling (throw exception for API user to handle - pass reason; see possible error codes under each request)
 
 ## Examples

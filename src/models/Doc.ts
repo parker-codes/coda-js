@@ -1,4 +1,4 @@
-import { Table, Section, Folder } from './index';
+import { Table, Section, Folder, Control } from './index';
 import API from '../API';
 
 class Doc {
@@ -47,6 +47,18 @@ class Doc {
     // https://coda.io/developers/apis/v1beta1#operation/getTable
     const { data } = await this.API.request(`/docs/${this.id}/tables/${tableIdOrName}`);
     return new Table(this.API, { ...data, docId: this.id });
+  }
+
+  async listControls(params: any): Promise<Control[]> {
+    // https://coda.io/developers/apis/v1beta1#operation/listControls
+    const { data } = await this.API.request(`/docs/${this.id}/controls`, params);
+    return data.items.map(control => new Control({ ...control, docId: this.id })); // map all items into controls
+  }
+
+  async getControl(controlIdOrName: string): Promise<Control> {
+    // https://coda.io/developers/apis/v1beta1#operation/getControl
+    const { data } = await this.API.request(`/docs/${this.id}/controls/${controlIdOrName}`);
+    return new Control({ ...data, docId: this.id });
   }
 }
 
