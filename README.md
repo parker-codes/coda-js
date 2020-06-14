@@ -58,7 +58,6 @@ Generate your token in your Coda profile settings. Notice: Everyone with this to
 
 ## TODOs
 
-- [ ] create tests (may be difficult because of non-synchronous nature of Coda API and also non-private API tokens)
 - [ ] add formulas and controls API
 - [ ] error handling (throw exception for API user to handle - pass reason; see possible error codes under each request)
 
@@ -77,7 +76,7 @@ const coda = new Coda('**********-********-*********'); // insert your token
 (async () => {
   const whoAmI = await coda.whoAmI();
   console.log(whoAmI);
-})().catch(error => console.log(error));
+})().catch((error) => console.log(error));
 ```
 
 #### Retrieving Data (List/Get)
@@ -91,7 +90,7 @@ const firstDocTables = await firstDoc.listTables();
 console.log(firstDocTables);
 
 const columns = await firstDocTables[0].listColumns();
-console.log(columns.map(column => column.name)); // list column names
+console.log(columns.map((column) => column.name)); // list column names
 
 const table = docs.getTable('grid-**********'); // insert/inject table name or ID here
 const rows = await table.listRows({
