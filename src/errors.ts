@@ -1,5 +1,5 @@
 // 400
-class BadRequestError extends Error {
+export class BadRequestError extends Error {
   constructor(message: string) {
     super(message);
     this.name = 'BadRequestError';
@@ -9,7 +9,7 @@ class BadRequestError extends Error {
 }
 
 // 401
-class UnauthorizedError extends Error {
+export class UnauthorizedError extends Error {
   constructor(message: string) {
     super(message);
     this.name = 'UnauthorizedError';
@@ -19,7 +19,7 @@ class UnauthorizedError extends Error {
 }
 
 // 403
-class ForbiddenError extends Error {
+export class ForbiddenError extends Error {
   constructor(message: string) {
     super(message);
     this.name = 'ForbiddenError';
@@ -29,7 +29,7 @@ class ForbiddenError extends Error {
 }
 
 // 404
-class NotFoundError extends Error {
+export class NotFoundError extends Error {
   constructor(message: string) {
     super(message);
     this.name = 'NotFoundError';
@@ -39,7 +39,7 @@ class NotFoundError extends Error {
 }
 
 // 410
-class GoneError extends Error {
+export class GoneError extends Error {
   constructor(message: string) {
     super(message);
     this.name = 'GoneError';
@@ -49,7 +49,7 @@ class GoneError extends Error {
 }
 
 // 429
-class TooManyRequestsError extends Error {
+export class TooManyRequestsError extends Error {
   constructor(message: string) {
     super(message);
     this.name = 'TooManyRequestsError';
@@ -57,5 +57,3 @@ class TooManyRequestsError extends Error {
     Object.setPrototypeOf(this, TooManyRequestsError.prototype);
   }
 }
-
-export { BadRequestError, UnauthorizedError, ForbiddenError, NotFoundError, TooManyRequestsError };

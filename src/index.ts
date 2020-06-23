@@ -3,7 +3,7 @@ import { Doc, Table, Row, Column, Section, Folder, Control } from './models/inde
 import { formatRows } from './models/utilities';
 export * from './errors';
 
-class Coda {
+export class Coda {
   API: API;
 
   constructor(token: string) {
@@ -152,5 +152,3 @@ class Coda {
     return new Control({ ...data, docId });
   }
 }
-
-export default Coda;

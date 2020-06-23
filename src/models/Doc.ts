@@ -1,4 +1,7 @@
-import { Table, Section, Folder, Control } from './index';
+import Table from './Table';
+import Section from './Section';
+import Folder from './Folder';
+import Control from './Control';
 import API from '../API';
 
 class Doc {
@@ -15,7 +18,7 @@ class Doc {
     // params: limit, pageToken
     // https://coda.io/developers/apis/v1beta1#operation/listSections
     const { data } = await this.API.request(`/docs/${this.id}/sections`, params);
-    return data.items.map(section => new Section({ ...section, docId: this.id })); // map all items into sections
+    return data.items.map((section) => new Section({ ...section, docId: this.id })); // map all items into sections
   }
 
   async getSection(sectionIdOrName: string): Promise<Section> {
@@ -28,7 +31,7 @@ class Doc {
     // params: limit, pageToken
     // https://coda.io/developers/apis/v1beta1#operation/listFolders
     const { data } = await this.API.request(`/docs/${this.id}/folders`, params);
-    return data.items.map(folder => new Folder({ ...folder, docId: this.id })); // map all items into folders
+    return data.items.map((folder) => new Folder({ ...folder, docId: this.id })); // map all items into folders
   }
 
   async getFolder(folderIdOrName: string): Promise<Folder> {
@@ -40,7 +43,7 @@ class Doc {
   async listTables(): Promise<Table[]> {
     // https://coda.io/developers/apis/v1beta1#operation/listTables
     const { data } = await this.API.request(`/docs/${this.id}/tables`);
-    return data.items.map(table => new Table(this.API, { ...table, docId: this.id })); // map all items into tables
+    return data.items.map((table) => new Table(this.API, { ...table, docId: this.id })); // map all items into tables
   }
 
   async getTable(tableIdOrName: string): Promise<Table> {
@@ -52,7 +55,7 @@ class Doc {
   async listControls(params: any): Promise<Control[]> {
     // https://coda.io/developers/apis/v1beta1#operation/listControls
     const { data } = await this.API.request(`/docs/${this.id}/controls`, params);
-    return data.items.map(control => new Control({ ...control, docId: this.id })); // map all items into controls
+    return data.items.map((control) => new Control({ ...control, docId: this.id })); // map all items into controls
   }
 
   async getControl(controlIdOrName: string): Promise<Control> {

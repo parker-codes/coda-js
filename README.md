@@ -14,6 +14,7 @@ An eloquent Node API for interacting with your Coda Docs. This API utilizes the 
 - query, insert, update, or delete table data
 - more formatting options than Coda's REST API for inserting or retrieving row values
 - an eloquent API (see examples)
+- handle Coda error types
 
 ## Installation
 
@@ -59,7 +60,6 @@ Generate your token in your Coda profile settings. Notice: Everyone with this to
 ## TODOs
 
 - [ ] add formulas API
-- [ ] error handling (throw exception for API user to handle - pass reason; see possible error codes under each request)
 
 ## Examples
 
@@ -68,7 +68,7 @@ Please note that the examples are currently only displaying async/await usage. Y
 #### Testing Connection
 
 ```js
-import Coda from 'coda-js';
+import { Coda } from 'coda-js';
 
 const coda = new Coda('**********-********-*********'); // insert your token
 
@@ -99,6 +99,10 @@ const rows = await table.listRows({
 const firstRow = rows[0];
 console.log(firstRow.values); // column/value pairs
 console.log(firstRow.listValues()); // each column is object with column and value properties
+
+const controls = await coda.listControls('some-doc-ID');
+// or
+const controls = await firstDoc.listControls();
 ```
 
 #### Inserting
@@ -158,4 +162,37 @@ await table.deleteRow('i-cpDDoshUEU');
 
 // deleting multiple rows from table
 await table.deleteRows(['i-cpDDoshUEU', 'i-jj81vtosO1']);
+```
+
+#### Error Handling
+
+Error types:
+
+- BadRequestError (400)
+- UnauthorizedError (401)
+- ForbiddenError (403)
+- NotFoundError (404)
+- GoneError (410)
+- TooManyRequestsError (429)
+
+```js
+import { Coda, UnauthorizedError, NotFoundError } from '../index';
+const coda = new Coda(process.env.TOKEN);
+
+// doesn't have access to view docs
+try {
+  await coda.listDocs();
+} catch (error) {
+  // error is instance of UnauthorizedError
+  // can also determine based on (error.name === 'UnauthorizedError')
+}
+
+// fails to find a doc with a bad ID
+try {
+  const BAD_DOC_ID = 'd-ckjd1013kkk';
+  await coda.listTables(BAD_DOC_ID);
+} catch (error) {
+  // error is instance of NotFoundError
+  // can also determine based on (error.name === 'NotFoundError')
+}
 ```

@@ -1,4 +1,4 @@
-import Coda from '../index';
+import { Coda } from '../index';
 
 const TOKEN = process.env.CODA_API_TOKEN as string;
 const DOC_ID = 'O7d8JvXngY';

@@ -1,4 +1,4 @@
-import Coda, { UnauthorizedError, NotFoundError } from '../index';
+import { Coda, UnauthorizedError, NotFoundError } from '../index';
 
 const TOKEN = process.env.CODA_API_TOKEN as string;
 
