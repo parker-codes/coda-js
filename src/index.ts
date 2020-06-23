@@ -1,6 +1,7 @@
 import API from './API';
 import { Doc, Table, Row, Column, Section, Folder, Control } from './models/index';
 import { formatRows } from './models/utilities';
+export * from './errors';
 
 class Coda {
   API: API;
@@ -27,7 +28,7 @@ class Coda {
    */
   async listDocs(params: any = {}): Promise<Doc[]> {
     const { data } = await this.API.request('/docs', params);
-    return data.items.map(doc => new Doc(this.API, doc)); // map all items into docs
+    return data.items.map((doc) => new Doc(this.API, doc)); // map all items into docs
   }
 
   async getDoc(id: string): Promise<Doc> {
@@ -39,7 +40,7 @@ class Coda {
     // params: limit, pageToken
     // https://coda.io/developers/apis/v1beta1#operation/listSections
     const { data } = await this.API.request(`/docs/${docId}/sections`, params);
-    return data.items.map(section => new Section({ ...section, docId })); // map all items into sections
+    return data.items.map((section) => new Section({ ...section, docId })); // map all items into sections
   }
 
   async getSection(docId: string, sectionIdOrName: string): Promise<Section> {
@@ -52,7 +53,7 @@ class Coda {
     // params: limit, pageToken
     // https://coda.io/developers/apis/v1beta1#operation/listFolders
     const { data } = await this.API.request(`/docs/${docId}/folders`, params);
-    return data.items.map(folder => new Folder({ ...folder, docId })); // map all items into folders
+    return data.items.map((folder) => new Folder({ ...folder, docId })); // map all items into folders
   }
 
   async getFolder(docId: string, folderIdOrName: string): Promise<Folder> {
@@ -64,7 +65,7 @@ class Coda {
   async listTables(docId: string): Promise<Table[]> {
     // https://coda.io/developers/apis/v1beta1#operation/listTables
     const { data } = await this.API.request(`/docs/${docId}/tables`);
-    return data.items.map(table => new Table(this.API, { ...table, docId })); // map all items into tables
+    return data.items.map((table) => new Table(this.API, { ...table, docId })); // map all items into tables
   }
 
   async getTable(docId: string, tableIdOrName: string): Promise<Table> {
@@ -77,7 +78,7 @@ class Coda {
     // params: limit, pageToken
     // https://coda.io/developers/apis/v1beta1#operation/listColumns
     const { data } = await this.API.request(`/docs/${docId}/tables/${tableId}/columns`, params);
-    return data.items.map(column => new Column({ ...column, docId, tableId })); // map all items into Columns
+    return data.items.map((column) => new Column({ ...column, docId, tableId })); // map all items into Columns
   }
 
   async getColumn(docId: string, tableId: string, columnIdOrName: string): Promise<Column> {
@@ -90,7 +91,7 @@ class Coda {
     // params: query, useColumnNames, limit, pageToken
     // https://coda.io/developers/apis/v1beta1#operation/listRows
     const { data } = await this.API.request(`/docs/${docId}/tables/${tableId}/rows`, params);
-    return data.items.map(row => new Row(this.API, { ...row, docId, tableId })); // map all items into Rows
+    return data.items.map((row) => new Row(this.API, { ...row, docId, tableId })); // map all items into Rows
   }
 
   async getRow(docId: string, tableId: string, rowIdOrName: string, params: any): Promise<Row> {
@@ -142,7 +143,7 @@ class Coda {
     // params: limit, pageToken, sortBy
     // https://coda.io/developers/apis/v1beta1#operation/listControls
     const { data } = await this.API.request(`/docs/${docId}/controls`, params);
-    return data.items.map(control => new Control({ ...control, docId })); // map all items into sections
+    return data.items.map((control) => new Control({ ...control, docId })); // map all items into sections
   }
 
   async getControl(docId: string, controlIdOrName: string): Promise<Section> {
