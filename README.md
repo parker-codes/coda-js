@@ -100,7 +100,7 @@ const firstRow = rows[0];
 console.log(firstRow.values); // column/value pairs
 console.log(firstRow.listValues()); // each column is object with column and value properties
 
-const tabeType =table.tableType; //get tableType
+const tableType =table.tableType; //get tableType
 const parentTable = tableType==="view" ? return table.parentTable : table; // if the table is a view, we can access its parent Table.
 console.log(parentTable.id)
 
