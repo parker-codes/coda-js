@@ -1,7 +1,7 @@
-import API from "./API";
-import { Doc, Table, Row, Column, Page, Control } from "./models/index";
-import { formatRows } from "./models/utilities";
-export * from "./errors";
+import API from './API';
+import { Doc, Table, Row, Column, Page, Control } from './models/index';
+import { formatRows } from './models/utilities';
+export * from './errors';
 
 export class Coda {
   API: API;
@@ -16,7 +16,7 @@ export class Coda {
    * @return object
    */
   async whoAmI(): Promise<any> {
-    const { data } = await this.API.request("/whoami");
+    const { data } = await this.API.request('/whoami');
     return data;
   }
 
@@ -27,7 +27,7 @@ export class Coda {
    * @return array
    */
   async listDocs(params: any = {}): Promise<Doc[]> {
-    const { data } = await this.API.request("/docs", params);
+    const { data } = await this.API.request('/docs', params);
     return data.items.map((doc) => new Doc(this.API, doc)); // map all items into docs
   }
 
@@ -136,7 +136,7 @@ export class Coda {
     const { status } = await this.API.request(
       `/docs/${docId}/tables/${tableId}/rows`,
       params,
-      "POST"
+      'POST'
     );
     return status === 202;
   }
@@ -156,7 +156,7 @@ export class Coda {
     const { status } = await this.API.request(
       `/docs/${docId}/tables/${tableId}/rows/${rowIdOrName}`,
       params,
-      "PUT"
+      'PUT'
     );
     return status === 202;
   }
@@ -171,7 +171,7 @@ export class Coda {
     const { status } = await this.API.request(
       `/docs/${docId}/tables/${tableId}/rows/${rowIdOrName}`,
       {},
-      "DELETE"
+      'DELETE'
     );
     return status === 202;
   }

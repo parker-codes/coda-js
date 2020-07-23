@@ -1,7 +1,7 @@
-import Column from "./Column";
-import Row from "./Row";
-import { formatRows } from "./utilities";
-import API from "../API";
+import Column from './Column';
+import Row from './Row';
+import { formatRows } from './utilities';
+import API from '../API';
 
 class Table {
   API: API;
@@ -84,7 +84,7 @@ class Table {
     const { status } = await this.API.request(
       `/docs/${this.docId}/tables/${this.id}/rows`,
       params,
-      "POST"
+      'POST'
     );
     return status === 202;
   }
@@ -99,7 +99,7 @@ class Table {
     const { status } = await this.API.request(
       `/docs/${this.docId}/tables/${this.id}/rows/${rowIdOrName}`,
       params,
-      "PUT"
+      'PUT'
     );
     return status === 202;
   }
@@ -110,7 +110,7 @@ class Table {
     const { status } = await this.API.request(
       `/docs/${this.docId}/tables/${this.id}/rows/${rowIdOrName}`,
       {},
-      "DELETE"
+      'DELETE'
     );
     return status === 202;
   }

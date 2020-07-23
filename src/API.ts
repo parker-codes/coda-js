@@ -1,12 +1,12 @@
-import axios, { AxiosRequestConfig, AxiosError, Method } from "axios";
-import * as Errors from "./errors";
+import axios, { AxiosRequestConfig, AxiosError, Method } from 'axios';
+import * as Errors from './errors';
 
 class API {
   private _axiosInstance: any;
 
   constructor(token: string) {
     this._axiosInstance = axios.create({
-      baseURL: "https://coda.io/apis/v1",
+      baseURL: 'https://coda.io/apis/v1',
       headers: { Authorization: `Bearer ${token}` },
     });
   }
@@ -14,9 +14,9 @@ class API {
   async request(
     url: string,
     params: any = {},
-    method: Method = "GET"
+    method: Method = 'GET'
   ): Promise<any> {
-    const options: AxiosRequestConfig = ["POST", "PUT", "PATCH"].includes(
+    const options: AxiosRequestConfig = ['POST', 'PUT', 'PATCH'].includes(
       method.toUpperCase()
     )
       ? { url, method, data: params }
@@ -25,7 +25,7 @@ class API {
   }
 
   async deleteWithBody(url: string, params: any = {}): Promise<any> {
-    const options: AxiosRequestConfig = { url, method: "DELETE", data: params };
+    const options: AxiosRequestConfig = { url, method: 'DELETE', data: params };
     return await this._axiosInstance(options).catch(determineErrorType);
   }
 }

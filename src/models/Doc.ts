@@ -1,8 +1,7 @@
-import Table from "./Table";
-import Section from "./Page";
-import Folder from "./Folder";
-import Control from "./Control";
-import API from "../API";
+import Table from './Table';
+import Section from './Page';
+import Control from './Control';
+import API from '../API';
 
 class Doc {
   API: API;
@@ -32,23 +31,6 @@ class Doc {
       `/docs/${this.id}/sections/${sectionIdOrName}`
     );
     return new Section({ ...data, docId: this.id });
-  }
-
-  async listFolders(params: any): Promise<Folder[]> {
-    // params: limit, pageToken
-    // https://coda.io/developers/apis/v1beta1#operation/listFolders
-    const { data } = await this.API.request(`/docs/${this.id}/folders`, params);
-    return data.items.map(
-      (folder) => new Folder({ ...folder, docId: this.id })
-    ); // map all items into folders
-  }
-
-  async getFolder(folderIdOrName: string): Promise<Folder> {
-    // https://coda.io/developers/apis/v1beta1#operation/getFolder
-    const { data } = await this.API.request(
-      `/docs/${this.id}/folders/${folderIdOrName}`
-    );
-    return new Folder({ ...data, docId: this.id });
   }
 
   async listTables(): Promise<Table[]> {
