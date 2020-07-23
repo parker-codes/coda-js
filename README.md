@@ -35,15 +35,15 @@ For example:
 
 ```js
 // uses two requests, but makes sense when you don't know all information ahead of time
-const doc = await coda.getDoc("O7d9JvX0GY");
-const table = await doc.getTable("grid-_14oaR8gdM");
+const doc = await coda.getDoc('O7d9JvX0GY');
+const table = await doc.getTable('grid-_14oaR8gdM');
 ```
 
 could be consolidated into:
 
 ```js
 // uses only one request, which is best when you already know the exact IDs to get the item(s) directly
-await coda.getTable("O7d9JvX0GY", "grid-_14oaR8gdM");
+await coda.getTable('O7d9JvX0GY', 'grid-_14oaR8gdM');
 ```
 
 ## Notice
@@ -68,9 +68,9 @@ Please note that the examples are currently only displaying async/await usage. Y
 #### Testing Connection
 
 ```js
-import { Coda } from "coda-js";
+import { Coda } from 'coda-js';
 
-const coda = new Coda("**********-********-*********"); // insert your token
+const coda = new Coda('**********-********-*********'); // insert your token
 
 // trick for using async in a script
 (async () => {
@@ -117,8 +117,8 @@ Inserting also has a second parameter of keyColumns that allows for an "upsert".
 // inserting using object
 await table.insertRows([
   {
-    Name: "Jacob",
-    Action: "Take out the trash",
+    Name: 'Jacob',
+    Action: 'Take out the trash',
     Completed: true,
   },
 ]);
@@ -126,13 +126,13 @@ await table.insertRows([
 // inserting via column objects
 await table.insertRows([
   [
-    { column: "Name", value: "Alexis" },
-    { column: "Action", value: "Do the dishes" },
+    { column: 'Name', value: 'Alexis' },
+    { column: 'Action', value: 'Do the dishes' },
   ],
   [
-    { column: "Name", value: "Parker" },
-    { column: "Action", value: "Make dinner" },
-    { column: "Completed", value: true },
+    { column: 'Name', value: 'Parker' },
+    { column: 'Action', value: 'Make dinner' },
+    { column: 'Completed', value: true },
   ],
 ]);
 ```
@@ -141,18 +141,18 @@ await table.insertRows([
 
 ```js
 // updating (using column name instead of ID)
-await table.updateRow("i-cpDDo9hAEU", {
+await table.updateRow('i-cpDDo9hAEU', {
   Completed: false,
 });
 
 // updating via column objects
-await table.updateRow("i-dF2-OoiiUi", [
-  { column: "Action", value: "Make the bed" },
+await table.updateRow('i-dF2-OoiiUi', [
+  { column: 'Action', value: 'Make the bed' },
 ]);
 
 // updating off of an already fetched row
 await row2.update({
-  "ai-dRD9afcc8": "To the moon, Alice!",
+  'ai-dRD9afcc8': 'To the moon, Alice!',
 });
 ```
 
@@ -160,14 +160,14 @@ await row2.update({
 
 ```js
 // delete row directly
-const row4 = await table.getRow("i-Ef2-OoZxIi");
+const row4 = await table.getRow('i-Ef2-OoZxIi');
 await row4.delete();
 
 // delete row from table
-await table.deleteRow("i-cpDDoshUEU");
+await table.deleteRow('i-cpDDoshUEU');
 
 // deleting multiple rows from table
-await table.deleteRows(["i-cpDDoshUEU", "i-jj81vtosO1"]);
+await table.deleteRows(['i-cpDDoshUEU', 'i-jj81vtosO1']);
 ```
 
 #### Error Handling
@@ -182,7 +182,7 @@ Error types:
 - TooManyRequestsError (429)
 
 ```js
-import { Coda, UnauthorizedError, NotFoundError } from "../index";
+import { Coda, UnauthorizedError, NotFoundError } from '../index';
 const coda = new Coda(process.env.TOKEN);
 
 // doesn't have access to view docs
@@ -195,7 +195,7 @@ try {
 
 // fails to find a doc with a bad ID
 try {
-  const BAD_DOC_ID = "d-ckjd1013kkk";
+  const BAD_DOC_ID = 'd-ckjd1013kkk';
   await coda.listTables(BAD_DOC_ID);
 } catch (error) {
   // error is instance of NotFoundError
