@@ -100,6 +100,10 @@ const firstRow = rows[0];
 console.log(firstRow.values); // column/value pairs
 console.log(firstRow.listValues()); // each column is object with column and value properties
 
+const tableType =table.tableType; //get tableType
+const parentTable = tableType==="view" ? return table.parentTable : table; // if the table is a view, we can access its parent Table.
+console.log(parentTable.id)
+
 const controls = await coda.listControls('some-doc-ID');
 // or
 const controls = await firstDoc.listControls();
@@ -142,7 +146,9 @@ await table.updateRow('i-cpDDo9hAEU', {
 });
 
 // updating via column objects
-await table.updateRow('i-dF2-OoiiUi', [{ column: 'Action', value: 'Make the bed' }]);
+await table.updateRow('i-dF2-OoiiUi', [
+  { column: 'Action', value: 'Make the bed' },
+]);
 
 // updating off of an already fetched row
 await row2.update({
