@@ -23,7 +23,7 @@ export class Coda {
   /**
    * Returns an array of docs.
    *
-   * @param array $params Optional query parameters listed here https://coda.io/developers/apis/v1beta1#operation/listDocs
+   * @param array $params Optional query parameters listed here https://coda.io/developers/apis/v1#operation/listDocs
    * @return array
    */
   async listDocs(params: any = {}): Promise<Doc[]> {
@@ -38,27 +38,27 @@ export class Coda {
 
   async listPages(docId: string, params: any): Promise<Page[]> {
     // params: limit, pageToken
-    // https://coda.io/developers/apis/v1beta1#operation/listPages
+    // https://coda.io/developers/apis/v1#operation/listPages
     const { data } = await this.API.request(`/docs/${docId}/Pages`, params);
     return data.items.map((Page) => new Page({ ...Page, docId })); // map all items into Pages
   }
 
-  async getPage(docId: string, PageIdOrName: string): Promise<Page> {
-    // https://coda.io/developers/apis/v1beta1#operation/getPage
+  async getPage(docId: string, pageIdOrName: string): Promise<Page> {
+    // https://coda.io/developers/apis/v1#operation/getPage
     const { data } = await this.API.request(
-      `/docs/${docId}/Pages/${PageIdOrName}`
+      `/docs/${docId}/Pages/${pageIdOrName}`
     );
     return new Page({ ...data, docId });
   }
 
   async listTables(docId: string): Promise<Table[]> {
-    // https://coda.io/developers/apis/v1beta1#operation/listTables
+    // https://coda.io/developers/apis/v1#operation/listTables
     const { data } = await this.API.request(`/docs/${docId}/tables`);
     return data.items.map((table) => new Table(this.API, { ...table, docId })); // map all items into tables
   }
 
   async getTable(docId: string, tableIdOrName: string): Promise<Table> {
-    // https://coda.io/developers/apis/v1beta1#operation/getTable
+    // https://coda.io/developers/apis/v1#operation/getTable
     const { data } = await this.API.request(
       `/docs/${docId}/tables/${tableIdOrName}`
     );
@@ -71,7 +71,7 @@ export class Coda {
     params: any
   ): Promise<Column[]> {
     // params: limit, pageToken
-    // https://coda.io/developers/apis/v1beta1#operation/listColumns
+    // https://coda.io/developers/apis/v1#operation/listColumns
     const { data } = await this.API.request(
       `/docs/${docId}/tables/${tableId}/columns`,
       params
@@ -86,7 +86,7 @@ export class Coda {
     tableId: string,
     columnIdOrName: string
   ): Promise<Column> {
-    // https://coda.io/developers/apis/v1beta1#operation/getColumn
+    // https://coda.io/developers/apis/v1#operation/getColumn
     const { data } = await this.API.request(
       `/docs/${docId}/tables/${tableId}/columns/${columnIdOrName}`
     );
@@ -95,7 +95,7 @@ export class Coda {
 
   async listRows(docId: string, tableId: string, params: any): Promise<Row[]> {
     // params: query, useColumnNames, limit, pageToken
-    // https://coda.io/developers/apis/v1beta1#operation/listRows
+    // https://coda.io/developers/apis/v1#operation/listRows
     const { data } = await this.API.request(
       `/docs/${docId}/tables/${tableId}/rows`,
       params
@@ -112,7 +112,7 @@ export class Coda {
     params: any
   ): Promise<Row> {
     // params: useColumnNames
-    // https://coda.io/developers/apis/v1beta1#operation/getColumn
+    // https://coda.io/developers/apis/v1#operation/getColumn
     const { data } = await this.API.request(
       `/docs/${docId}/tables/${tableId}/rows/${rowIdOrName}`,
       params
@@ -128,7 +128,7 @@ export class Coda {
     keyColumns: any[] = []
   ): Promise<boolean> {
     // params: rows (array - required), keyColumns (array)
-    // https://coda.io/developers/apis/v1beta1#operation/upsertRows
+    // https://coda.io/developers/apis/v1#operation/upsertRows
 
     const formattedRows = formatRows(rows);
     const params = { rows: formattedRows, keyColumns };
@@ -148,7 +148,7 @@ export class Coda {
     row: any
   ): Promise<boolean> {
     // params: row (array - required)
-    // https://coda.io/developers/apis/v1beta1#operation/updateRow
+    // https://coda.io/developers/apis/v1#operation/updateRow
 
     const [formattedRow] = formatRows([row]);
     const params = { row: formattedRow };
@@ -166,7 +166,7 @@ export class Coda {
     tableId: string,
     rowIdOrName: string
   ): Promise<boolean> {
-    // https://coda.io/developers/apis/v1beta1#operation/deleteRow
+    // https://coda.io/developers/apis/v1#operation/deleteRow
 
     const { status } = await this.API.request(
       `/docs/${docId}/tables/${tableId}/rows/${rowIdOrName}`,
@@ -181,7 +181,7 @@ export class Coda {
     tableId: string,
     rowIds: string[]
   ): Promise<boolean> {
-    // https://coda.io/developers/apis/v1beta1#operation/deleteRows
+    // https://coda.io/developers/apis/v1#operation/deleteRows
 
     const params = { rowIds };
     const { status } = await this.API.deleteWithBody(
@@ -193,13 +193,13 @@ export class Coda {
 
   async listControls(docId: string, params: any): Promise<Page[]> {
     // params: limit, pageToken, sortBy
-    // https://coda.io/developers/apis/v1beta1#operation/listControls
+    // https://coda.io/developers/apis/v1#operation/listControls
     const { data } = await this.API.request(`/docs/${docId}/controls`, params);
     return data.items.map((control) => new Control({ ...control, docId })); // map all items into Pages
   }
 
   async getControl(docId: string, controlIdOrName: string): Promise<Page> {
-    // https://coda.io/developers/apis/v1beta1#operation/getControl
+    // https://coda.io/developers/apis/v1#operation/getControl
     const { data } = await this.API.request(
       `/docs/${docId}/controls/${controlIdOrName}`
     );
