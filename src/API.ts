@@ -6,13 +6,21 @@ class API {
 
   constructor(token: string) {
     this._axiosInstance = axios.create({
-      baseURL: 'https://coda.io/apis/v1beta1',
+      baseURL: 'https://coda.io/apis/v1',
       headers: { Authorization: `Bearer ${token}` },
     });
   }
 
-  async request(url: string, params: any = {}, method: Method = 'GET'): Promise<any> {
-    const options: AxiosRequestConfig = ['POST', 'PUT', 'PATCH'].includes(method.toUpperCase()) ? { url, method, data: params } : { url, method, params };
+  async request(
+    url: string,
+    params: any = {},
+    method: Method = 'GET'
+  ): Promise<any> {
+    const options: AxiosRequestConfig = ['POST', 'PUT', 'PATCH'].includes(
+      method.toUpperCase()
+    )
+      ? { url, method, data: params }
+      : { url, method, params };
     return await this._axiosInstance(options).catch(determineErrorType);
   }
 
