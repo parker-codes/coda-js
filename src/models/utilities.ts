@@ -13,12 +13,6 @@ const formatRows = (rows: any[]) => {
       throw new Error('A row must either be an array of objects for each column, or else one object of column/value pairs..');
     }
 
-    // // otherwise format it by splitting key/value pairs
-    // const formattedRows = row.map(column => {
-    //     const [column, value] = Object.entries(column)[0];
-    //     return { column, value };
-    // });
-
     // keys are acting as column ID/name
     const columns: any[] = [];
 

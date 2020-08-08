@@ -1,6 +1,6 @@
 <h2 align="center">Coda - Node API</h2>
 
-An eloquent Node API for interacting with your Coda Docs. This API utilizes the [Coda REST API (beta)](https://coda.io/developers/apis/v1beta1).
+An eloquent Node API for interacting with your Coda Docs. This API utilizes the [Coda REST API (beta)](https://coda.io/developers/apis/v1).
 
 ![npm](https://img.shields.io/npm/dw/coda-js)
 ![npm type definitions](https://img.shields.io/npm/types/typescript)
@@ -28,7 +28,7 @@ $ npm install --save coda-js
 
 ## Usage
 
-This API uses the same method names as found in the [Coda Docs (beta)](https://coda.io/developers/apis/v1beta1). Review them for additional methods.
+This API uses the same method names as found in the [Coda Docs (beta)](https://coda.io/developers/apis/v1). Review them for additional methods.
 Note that using item IDs is best (doesn't change), but each parameter that accepts an ID also accepts the name for convenience.
 All methods can be used from the base instance or from their respective parent.
 For example:
@@ -100,9 +100,9 @@ const firstRow = rows[0];
 console.log(firstRow.values); // column/value pairs
 console.log(firstRow.listValues()); // each column is object with column and value properties
 
-const tableType =table.tableType; //get tableType
-const parentTable = tableType==="view" ? return table.parentTable : table; // if the table is a view, we can access its parent Table.
-console.log(parentTable.id)
+const tableType = table.tableType;
+const parentTable = tableType === 'view' ? return table.parentTable : table; // if the table is a view, we can access its parent Table
+console.log(parentTable.id);
 
 const controls = await coda.listControls('some-doc-ID');
 // or
@@ -146,9 +146,7 @@ await table.updateRow('i-cpDDo9hAEU', {
 });
 
 // updating via column objects
-await table.updateRow('i-dF2-OoiiUi', [
-  { column: 'Action', value: 'Make the bed' },
-]);
+await table.updateRow('i-dF2-OoiiUi', [{ column: 'Action', value: 'Make the bed' }]);
 
 // updating off of an already fetched row
 await row2.update({
@@ -169,6 +167,29 @@ await table.deleteRow('i-cpDDoshUEU');
 // deleting multiple rows from table
 await table.deleteRows(['i-cpDDoshUEU', 'i-jj81vtosO1']);
 ```
+
+#### Checking Request Status
+
+Inserting, updating, and deleting in Coda is not always processed immediately. Check the mutation status if you need to make sure it was completed:
+
+```js
+// for an update
+const request = await todo.update({
+  Completed: !completed,
+});
+const requestCompleted = await request.isCompleted();
+
+// for a delete
+const request = await table.deleteRow('i-cpDDoshUEU');
+if (await request.isCompleted()) {
+  // ... do something
+}
+
+// a little more manually
+const requestCompleted = await coda.mutationStatus('some-request-id');
+```
+
+---
 
 #### Error Handling
 

@@ -1,5 +1,6 @@
 import { formatRows } from './utilities';
 import API from '../API';
+import PendingRequest from './PendingRequest';
 
 class Row {
   API: API;
@@ -18,29 +19,27 @@ class Row {
   listValues(): any[] {
     const values: any[] = [];
 
-    Object.keys(this.values).forEach(column => {
+    Object.keys(this.values).forEach((column) => {
       values.push({ column, value: this.values[column] });
     });
 
     return values;
   }
 
-  async update(row: any): Promise<boolean> {
-    // params: row (array - required)
-    // https://coda.io/developers/apis/v1beta1#operation/updateRow
-
+  // params: row (array - required)
+  // https://coda.io/developers/apis/v1#operation/updateRow
+  async update(row: any): Promise<PendingRequest> {
     const [formattedRow] = formatRows([row]);
     const params = { row: formattedRow };
 
-    const { status } = await this.API.request(`/docs/${this.docId}/tables/${this.tableId}/rows/${this.id}`, params, 'PUT');
-    return status === 202;
+    const { data } = await this.API.request(`/docs/${this.docId}/tables/${this.tableId}/rows/${this.id}`, params, 'PUT');
+    return new PendingRequest(this.API, data.requestId);
   }
 
-  async delete(): Promise<boolean> {
-    // https://coda.io/developers/apis/v1beta1#operation/deleteRow
-
-    const { status } = await this.API.request(`/docs/${this.docId}/tables/${this.tableId}/rows/${this.id}`, {}, 'DELETE');
-    return status === 202;
+  // https://coda.io/developers/apis/v1#operation/deleteRow
+  async delete(): Promise<PendingRequest> {
+    const { data } = await this.API.request(`/docs/${this.docId}/tables/${this.tableId}/rows/${this.id}`, {}, 'DELETE');
+    return new PendingRequest(this.API, data.requestId);
   }
 }
 

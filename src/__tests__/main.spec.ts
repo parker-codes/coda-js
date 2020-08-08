@@ -58,9 +58,9 @@ test('can get row values as object', async () => {
     useColumnNames: true,
   });
 
-  const firstRow = rows[0];
+  const secondRow = rows[1];
 
-  expect(firstRow).toMatchObject({
+  expect(secondRow).toMatchObject({
     type: 'row',
     docId: DOC_ID,
     tableId: TODOS_TABLE_ID,
@@ -73,8 +73,8 @@ test('can get row values as { column, value } array', async () => {
     useColumnNames: true,
   });
 
-  const firstRow = rows[0];
-  const values = firstRow.listValues();
+  const secondRow = rows[1];
+  const values = secondRow.listValues();
 
   expect(values).toEqual([
     { column: 'Name', value: 'Markus' },
@@ -137,4 +137,23 @@ test('can get control by name', async () => {
     controlType: 'scale',
     value: 5, // 5/5
   });
+});
+
+test('can check for pending status', async () => {
+  jest.setTimeout(10000); // sometimes this request takes a while
+
+  const ROW_ID = 'i-DvV-oDw-my';
+  const COLUMN_ID = 'c-HqV4bExpDS';
+
+  // get record and "completed" value
+  const todo = await coda.getRow(DOC_ID, TODOS_TABLE_ID, ROW_ID);
+  const completed = todo.listValues().find((row) => row.column === COLUMN_ID).value;
+
+  // flip the completion status
+  const request = await todo.update({
+    Completed: !completed,
+  });
+
+  const requestCompleted = await request.isCompleted();
+  expect(typeof requestCompleted).toBe('boolean');
 });
