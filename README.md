@@ -1,6 +1,6 @@
 <h2 align="center">Coda - Node API</h2>
 
-An eloquent Node API for interacting with your Coda Docs. This API utilizes the [Coda REST API (beta)](https://coda.io/developers/apis/v1beta1).
+An eloquent Node API for interacting with your Coda Docs. This API utilizes the [Coda REST API](https://coda.io/developers/apis/v1).
 
 ![npm](https://img.shields.io/npm/dw/coda-js)
 ![npm type definitions](https://img.shields.io/npm/types/typescript)
@@ -28,7 +28,7 @@ $ npm install --save coda-js
 
 ## Usage
 
-This API uses the same method names as found in the [Coda Docs (beta)](https://coda.io/developers/apis/v1beta1). Review them for additional methods.
+This API uses the same method names as found in the [Coda Docs](https://coda.io/developers/apis/v1). Review them for additional methods.
 Note that using item IDs is best (doesn't change), but each parameter that accepts an ID also accepts the name for convenience.
 All methods can be used from the base instance or from their respective parent.
 For example:
@@ -50,16 +50,21 @@ await coda.getTable('O7d9JvX0GY', 'grid-_14oaR8gdM');
 
 Be aware that inserting, updating, and deleting methods are not synchronous. They return true if the operation
 successfully added the request to Coda's API queue. It does not directly mean that the operation was successful or that
-it is complete. Because of this, it is strongly discouraged (in Coda docs) to query after performing one of these operations because
-the inserted/updated/deleted data may not have been processed yet.
+it is complete. As of v1 of the Coda API, there is a way to check if a mutation has finished. See [the section on Checking Request Status](#checking-request-status) to learn how to detect when an operation is completed.
 
 ## Token
 
 Generate your token in your Coda profile settings. Notice: Everyone with this token has full access to all your docs! It is recommended to not use this client-side or anywhere your API token could be found.
 
+## Pagination
+
+Coda's v1 API added a more complete pagination system. Read [the docs](https://coda.io/developers/apis/v1#list-endpoints) or the Pagination section in the [Migration Guide](https://coda.io/api-migration-guide).
+
 ## TODOs
 
 - [ ] add formulas API
+
+---
 
 ## Examples
 
@@ -99,6 +104,10 @@ const rows = await table.listRows({
 const firstRow = rows[0];
 console.log(firstRow.values); // column/value pairs
 console.log(firstRow.listValues()); // each column is object with column and value properties
+
+const tableType = table.tableType;
+const parentTable = tableType === 'view' ? return table.parentTable : table; // if the table is a view, we can access its parent Table
+console.log(parentTable.id);
 
 const controls = await coda.listControls('some-doc-ID');
 // or
@@ -163,6 +172,29 @@ await table.deleteRow('i-cpDDoshUEU');
 // deleting multiple rows from table
 await table.deleteRows(['i-cpDDoshUEU', 'i-jj81vtosO1']);
 ```
+
+#### Checking Request Status
+
+Inserting, updating, and deleting in Coda is not always processed immediately. Check the mutation status if you need to make sure it was completed:
+
+```js
+// for an update
+const request = await todo.update({
+  Completed: !completed,
+});
+const requestCompleted = await request.isCompleted();
+
+// for a delete
+const request = await table.deleteRow('i-cpDDoshUEU');
+if (await request.isCompleted()) {
+  // ... do something
+}
+
+// a little more manually
+const requestCompleted = await coda.mutationStatus('some-request-id');
+```
+
+---
 
 #### Error Handling
 
