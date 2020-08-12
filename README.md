@@ -50,16 +50,21 @@ await coda.getTable('O7d9JvX0GY', 'grid-_14oaR8gdM');
 
 Be aware that inserting, updating, and deleting methods are not synchronous. They return true if the operation
 successfully added the request to Coda's API queue. It does not directly mean that the operation was successful or that
-it is complete. Because of this, it is strongly discouraged (in Coda docs) to query after performing one of these operations because
-the inserted/updated/deleted data may not have been processed yet.
+it is complete. As of v1 of the Coda API, there is a way to check if a mutation has finished. See [the section on Checking Request Status](#checking-request-status) to learn how to detect when an operation is completed.
 
 ## Token
 
 Generate your token in your Coda profile settings. Notice: Everyone with this token has full access to all your docs! It is recommended to not use this client-side or anywhere your API token could be found.
 
+## Pagination
+
+Coda's v1 API added a more complete pagination system. Read [the docs](https://coda.io/developers/apis/v1#list-endpoints) or the Pagination section in the [Migration Guide](https://coda.io/api-migration-guide).
+
 ## TODOs
 
 - [ ] add formulas API
+
+---
 
 ## Examples
 
