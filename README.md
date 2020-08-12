@@ -1,6 +1,6 @@
 <h2 align="center">Coda - Node API</h2>
 
-An eloquent Node API for interacting with your Coda Docs. This API utilizes the [Coda REST API (beta)](https://coda.io/developers/apis/v1).
+An eloquent Node API for interacting with your Coda Docs. This API utilizes the [Coda REST API](https://coda.io/developers/apis/v1).
 
 ![npm](https://img.shields.io/npm/dw/coda-js)
 ![npm type definitions](https://img.shields.io/npm/types/typescript)
@@ -28,7 +28,7 @@ $ npm install --save coda-js
 
 ## Usage
 
-This API uses the same method names as found in the [Coda Docs (beta)](https://coda.io/developers/apis/v1). Review them for additional methods.
+This API uses the same method names as found in the [Coda Docs](https://coda.io/developers/apis/v1). Review them for additional methods.
 Note that using item IDs is best (doesn't change), but each parameter that accepts an ID also accepts the name for convenience.
 All methods can be used from the base instance or from their respective parent.
 For example:
