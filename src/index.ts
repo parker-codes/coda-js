@@ -88,7 +88,7 @@ export class Coda {
     const params = { rows: formattedRows, keyColumns };
 
     const { data } = await this.API.request(`/docs/${docId}/tables/${tableId}/rows`, params, 'POST');
-    return new PendingRequest(this.API, data.requestId);
+    return new PendingRequest(this.API, data.requestId, data.addedRowIds);
   }
 
   // params: row (array - required)
