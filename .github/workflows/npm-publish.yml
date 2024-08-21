@@ -14,8 +14,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Allow publish to work with /github/workflows dir
-        run: sudo git config --global --add safe.directory /home/runner/work/coda-js/coda-js
       - name: Set up Node.js
         uses: actions/setup-node@master
         with:
@@ -23,7 +21,7 @@ jobs:
       - run: yarn install --frozen-lockfile
       - run: yarn build
       - name: Publish if version has been updated
-        uses: pascalgn/npm-publish-action@4f4bf159e299f65d21cd1cbd96fc5d53228036df
+        uses: pascalgn/npm-publish-action@1.3.9
         with:
           commit_pattern: "^Release (\\S+)"
         env:
