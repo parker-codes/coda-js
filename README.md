@@ -116,7 +116,7 @@ const controls = await firstDoc.listControls();
 
 #### Inserting
 
-Inserting also has a second parameter of keyColumns that allows for an "upsert". See Coda documentation for details.
+Inserting also has an optional second parameter of keyColumns that allows for an "upsert". If keyColumns is not specified, or the passed array is empty, the call returns an addedRowIds value which is an array of strings specifying the ID for each inserted row. See Coda documentation for details.
 
 ```js
 // inserting using object

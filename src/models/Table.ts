@@ -58,7 +58,7 @@ class Table {
     const params = { rows: formattedRows, keyColumns };
 
     const { data } = await this.API.request(`/docs/${this.docId}/tables/${this.id}/rows`, params, 'POST');
-    return new PendingRequest(this.API, data.requestId);
+    return new PendingRequest(this.API, data.requestId, data.addedRowIds);
   }
 
   // params: row (array - required)
