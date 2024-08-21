@@ -14,8 +14,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - run: sudo git config --global --add safe.directory '*'
-      - run: sudo git config --system --add safe.directory '*'
+      - run: sudo git config --system --add safe.directory $(pwd)
       - name: Set up Node.js
         uses: actions/setup-node@master
         with:
