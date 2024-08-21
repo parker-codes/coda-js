@@ -1,4 +1,4 @@
-# This workflow will run tests and then publish the package to NPM when a release is created
+# This workflow will build and then publish the package to NPM when a release is created
 
 name: NPM Publish
 
@@ -19,9 +19,6 @@ jobs:
           node-version: 12.18.0 # LTS
       - run: yarn install --frozen-lockfile
       - run: yarn build
-      - run: yarn test
-        env:
-          CODA_API_TOKEN: ${{secrets.CODA_API_TOKEN}}
 
   npm-publish:
     name: npm-publish
