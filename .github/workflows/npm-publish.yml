@@ -8,25 +8,14 @@ on:
       - master
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@master
-      - name: Set up Node.js
-        uses: actions/setup-node@master
-        with:
-          node-version: 12.18.0 # LTS
-      - run: yarn install --frozen-lockfile
-      - run: yarn build
-
   npm-publish:
     name: npm-publish
     needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@master
+        uses: actions/checkout@v3
+        run: git config --system --add safe.directory /github/workspace
       - name: Set up Node.js
         uses: actions/setup-node@master
         with:
