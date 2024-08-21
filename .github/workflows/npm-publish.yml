@@ -14,8 +14,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Change owner of root directory
-        run: sudo chown root:root .
+      - name: Allow publish to work with /github/workflows dir
+        run: sudo git config --global --add safe.directory /home/runner/work/coda-js/coda-js
       - name: Set up Node.js
         uses: actions/setup-node@master
         with:
