@@ -31,13 +31,13 @@ export class Coda {
   // params: limit, pageToken
   // https://coda.io/developers/apis/v1#operation/listPages
   async listPages(docId: string, params: any): Promise<Page[]> {
-    const { data } = await this.API.request(`/docs/${docId}/Pages`, params);
-    return data.items.map((Page) => new Page({ ...Page, docId })); // map all items into Pages
+    const { data } = await this.API.request(`/docs/${docId}/pages`, params);
+    return data.items.map((page) => new Page({ ...page, docId })); // map all items into Pages
   }
 
   // https://coda.io/developers/apis/v1#operation/getPage
   async getPage(docId: string, pageIdOrName: string): Promise<Page> {
-    const { data } = await this.API.request(`/docs/${docId}/Pages/${pageIdOrName}`);
+    const { data } = await this.API.request(`/docs/${docId}/pages/${pageIdOrName}`);
     return new Page({ ...data, docId });
   }
 
