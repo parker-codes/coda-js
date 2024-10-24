@@ -8,6 +8,7 @@ class Table {
   API: API;
   id?: string;
   docId?: string;
+  name?: string;
 
   constructor(API: API, data: any) {
     this.API = API;
